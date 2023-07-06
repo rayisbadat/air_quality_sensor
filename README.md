@@ -18,6 +18,7 @@ Cable the two sensors to the board in a daisy chain via the STEMMA QT / Qwiic ca
   * Temp and Humidity seem accurateish,  
   * spec claims `The SCD-40 is lower cost, and is perfect for indoor/outdoor air quality and CO2 measurements. It has a range of 400~2000 ppm with an accuracy of ±(50 ppm + 5% of reading)`
     * I have no way to validate/calibrate CO2 levels
+* [Adafruit PMSA003I Air Quality Breakout](https://www.adafruit.com/product/4632)
 * 2x STEMMA QT / Qwiic cables (No soldering needed)
 * Battery
 
