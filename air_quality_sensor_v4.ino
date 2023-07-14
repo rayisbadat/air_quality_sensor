@@ -167,9 +167,9 @@ void pushMetrics(struct air_val air_values,struct voc_val voc_values, struct bat
     pushToAdafruit( feedHumidity, String( air_values.relative_humidity ) );
     pushToAdafruit( feedCO2, String( air_values.co2 ) );
     pushToAdafruit( feedVOC, String( voc_values.voc_index ) );
-    pushToAdafruit( feedPM25, String( pm_values.pm10_env ) );
+    pushToAdafruit( feedPM10, String( pm_values.pm10_env ) );
     pushToAdafruit( feedPM25, String( pm_values.pm25_env ) );
-    pushToAdafruit( feedPM25, String( pm_values.pm100_env ) );
+    pushToAdafruit( feedPM100, String( pm_values.pm100_env ) );
 
 }
 
