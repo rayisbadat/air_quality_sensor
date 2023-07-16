@@ -56,13 +56,11 @@ TinyGsmClient  client(modem);
 #define GSM_AUTOBAUD_MIN 9600
 #define GSM_AUTOBAUD_MAX 115200
 
-
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVER_PORT  80
 #define AIO_SERVER_SSLPORT  443 //ssl
 
 //////
-
 bool displayOn = true;
 
 struct battery_val {
@@ -108,6 +106,7 @@ struct voc_val get_voc(float temperature, float relative_humidity) {
   return voc_values;
 }
 
+//void updateTFT(float temp, float humidity, uint16_t co_two, int32_t voc_index, uint16_t voc_raw , float batt_volt, float batt_perc) {
 void updateTFT(struct air_val air_values,struct voc_val voc_values, struct battery_val battery_values,PM25_AQI_Data pm_values) {
 
   float temp = air_values.temperature;
@@ -132,27 +131,26 @@ void updateTFT(struct air_val air_values,struct voc_val voc_values, struct batte
   tft.print(F("Rel Humidity: ")); tft.print(humidity); tft.println("%");
 
   tft.setTextColor(ST77XX_GREEN);
-  tft.print(F("CO2:")); tft.print(co_two); tft.println("ppm");
+  tft.print(F("CO2:")); tft.print(co_two); tft.println(" ppm");
 
-  tft.setTextColor(ST77XX_BLUE);
+  tft.setTextColor(ST77XX_CYAN);
   tft.print("VOC Idx: "); tft.println(voc_index);
+
+  tft.setTextColor(ST77XX_MAGENTA);
+  tft.print(F("PM1.0: ")); tft.print(pm_values.pm10_env);tft.println(" ppm");
+  tft.print(F("PM2.5: ")); tft.print(pm_values.pm25_env);tft.println(" ppm");
+  tft.print(F("PM10: ")); tft.print(pm_values.pm100_env);tft.println(" ppm");
 
   text_size = 1;
   tft.setTextSize(text_size);
    
   tft.setTextColor(ST77XX_ORANGE);
-  tft.print(F("Chrg: ")); tft.print(batt_perc,1); tft.print("% ");
-  tft.print(F("Batt Volt: ")); tft.print(batt_volt,1); tft.println("V");
-    
-
-  tft.setTextColor(ST77XX_MAGENTA);
-  tft.print(F("PM1.0: ")); tft.print(pm_values.pm10_env);tft.print("ppm ");
-  tft.print(F("PM2.5: ")); tft.print(pm_values.pm25_env);tft.print("ppm ");
-  tft.print(F("PM10: ")); tft.print(pm_values.pm100_env);tft.println("ppm");
+  tft.print(F("Chrg: ")); tft.print(batt_perc,1); tft.print("%");
+  tft.print(F(" Batt Volt: ")); tft.print(batt_volt,1); tft.println("V");
+      
 }
 
 void pushMetrics(struct air_val air_values,struct voc_val voc_values, struct battery_val battery_values,PM25_AQI_Data pm_values) {
-
     HttpClient http(client, AIO_SERVER, AIO_SERVER_SSLPORT);
 
     String feedTemp = String("/api/v2/") + String(AIO_USERNAME) + String("/feeds/") + String("airquality.temp") + String("/data.json");
@@ -194,14 +192,10 @@ void pushToAdafruit( String feedUrl, String value ) {
       http.print(stringBody);
     http.endRequest();
 
-/*
     int status = http.responseStatusCode();
     String respBody = http.responseBody();
     SerialMon.print(F("Response status code: "));
     SerialMon.println(status);
-    SerialMon.print(F("Response Body: "));
-    SerialMon.println(respBody);
-*/
 }
 
 void setup(void) {
@@ -380,12 +374,3 @@ void loop() {
 
   delay(5000);
 }
-
-/*
- * https://github.com/vshymanskyy/TinyGSM/blob/master/examples/MqttClient/MqttClient.ino
- * https://github.com/vshymanskyy/TinyGSM/blob/master/examples/MqttClient/MqttClient.ino
- * https://github.com/HologramEducation/hologram-tinygsm-examples/blob/master/adafruit-io/hologram-mqtt-client.ino
- * https://github.com/adafruit/Adafruit_MQTT_Library/blob/master/examples/adafruitio_secure_esp32/adafruitio_secure_esp32.ino
- * /https://github.com/vshymanskyy/TinyGSM/blob/master/examples/HttpClient/HttpClient.ino
- * ./src/TinyGsmClientSIM7000SSL.h for ssl cert in tinygsm ??
- */
