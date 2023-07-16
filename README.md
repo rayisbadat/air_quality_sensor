@@ -11,9 +11,11 @@ Will take air sensor value reading for Temp, Humidity, CO2 (ppm), and Air Qualit
   * Feather GND Pin <-> SIM 7xxx LTE Module GND Pin
   * Feather 3v3 Pin <-> SIM 7xxx LTE Module 5v Pin
   * Connect Battery to battery port
-  * Connec the sensors via STEMMA QT / QWIIC cables in a chain. Order does not matter.
+  * Connect the sensors via STEMMA QT / QWIIC cables in a chain. Order does not matter.
+  * Connect the Celluar antenna to MAIN (SIM7600) or the LTE (SIM7060) depending on board labeling.
   * Optional:
     * If you hook up one of the control pins, or the other 3v3 pin to a pin on the SIM7xxxx board, and move a jumper you can turn the LTE board on and off programiclly.  I didnt need to do that so dont know which pins and jumper you need to do.
+    * Connect the GPS antenna (SIM7600) to AUX or GNSS (SIM7060) depending on board labeling.
 
 # Parts List
 * Board
@@ -37,6 +39,7 @@ Will take air sensor value reading for Temp, Humidity, CO2 (ppm), and Air Qualit
   * 1st Try: [SIM-7600A](https://www.amazon.com/4G-HAT-SIM7600A-H-Communication-Positioning/dp/B07PLTP3M6)
     * Worked fine, but didnt have https support in TinyGSM
     * Use the v4 sketch file
+    * I am unsure and it wasnt labeled but... I think the antenna has a SMA male connector, the board has a MHF or UFL female connector surface mounted.  And the kit came with the necessary conversion cable
   * 2nd Try:  [SIM7060G](https://www.amazon.com/SIM7070G-NB-IoT-Cat-M-GPRS-GNSS/dp/B08DVCX4PG)
     * Will try in v5 file
     * Hoping smaller formfactore will make final assembly easier..looks same size as a feather.
@@ -48,6 +51,7 @@ Will take air sensor value reading for Temp, Humidity, CO2 (ppm), and Air Qualit
 * Helpful links
   * [The Feather Board Pinouts](https://learn.adafruit.com/esp32-s2-reverse-tft-feather/pinouts)
   * [7600 to Arduino connections](https://www.waveshare.com/wiki/7600X_connect_Arduino)
+  * [SIM7600 Board](https://www.waveshare.com/wiki/SIM7600E-H_4G_HAT)
   * [Random Blog about https and TinyGSM](https://dogcomp.medium.com/send-https-request-from-sim-7600x-lte-module-4f76be19e900)
   * [TinyGSM code and exampels](https://github.com/vshymanskyy/TinyGSM)
   * [Adafruit IO API Docs](https://io.adafruit.com/api/docs/#create-data)
